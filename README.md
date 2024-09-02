@@ -80,7 +80,7 @@ banner = r"""
                                                                                  
                                                                                  
                                                                                
-                       ENTER ĐỂ VÀO TOOL                                
+                       ENTER ĐỂ VÀO TOOLL                                
 """
 Anime.Fade(Center.Center(banner), Colors.blue_to_green, Colorate.Vertical, enter=True)
 from pystyle import Add, Center, Anime, Colors, Colorate, Write, System
