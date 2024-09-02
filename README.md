@@ -1,72 +1,5 @@
-import hashlib
-import datetime
-import requests
-import os
-client_ip = requests.get('https://kiemtraip.com/raw.php').text
-from time import strftime
-now = datetime.datetime.now()
-thu = now.strftime('%A')
-ngay_hom_nay = now.strftime('%d')
-thang_nay = now.strftime('%m')
-nam_ = now.strftime('%Y')
-now = datetime.datetime.now()
-gio_hien_tai = now.strftime('%H:%M:%S')
-os.system("clear")
-den = "\033[1;90m"
-luc = "\033[1;32m"
-trang = "\033[1;37m"
-red = "\033[1;31m"
-vang = "\033[1;33m"
-tim = "\033[1;35m"
-lamd = "\033[1;34m"
-lam = "\033[1;36m"
-purple = "\e[35m"
-hong = "\033[1;95m"
-em = f"""\033[1;36m
-                 ███╗   ██╗██╗   ██╗ █████╗ 
-                 ████╗  ██║██║   ██║██╔══██╗
-                 ██╔██╗ ██║██║   ██║███████║
-                 ██║╚██╗██║╚██╗ ██╔╝██╔══██║
-                 ██║ ╚████║ ╚████╔╝ ██║  ██║
-                 ╚═╝  ╚═══╝  ╚═══╝  ╚═╝  ╚═╝"""
-anh="\033[1;31m[\033[1;37m✾\033[1;31m] \033[1;37m➩"                 
-def genkey(ip):
-    return hashlib.md5(f"{ip}vuhoangpro{datetime.datetime.now().strftime('%Y-%m-%d')}7535gydr".encode()).hexdigest()
 
-FileLuuKey = 'keytdsfbnva.txt' # Bạn có thể thay tùy thích:v
 
-getIP = requests.get('https://66c8-f8d-b29f-44a-5a90-f94-024c-33d-b8c6.vuhoangpro.site/api/myip.php').text
-
-key = genkey(getIP)
-url =  'https://anhcacto.tool1/key/?key='+key # Trang đích 
-yeumoney = requests.get(f'https://yeumoney.com/QL_api.php?token=09f5d84bf07eefe03050ce6f928e794f13cb4c44f0cc13862e4c4d29ee74a1ae&format=json&url={url}').json()['shortenedUrl']
-
-while True:
-    if os.path.exists(FileLuuKey):
-        with open(FileLuuKey, "r") as file:
-            file_key = file.read().strip()
-        if file_key == key:
-            break
-        else:
-            os.remove(FileLuuKey)
-            continue
-    print(f"{em}   \n")
-    print(f'{anh}  {trang}[{lam} IP Hiện Tại Của Bạn {trang}]{trang}{vang} {vang}: {luc}{client_ip}')
-    print(f"{anh} {trang} [ {lam}Thời Gian{trang} ] {vang}: {luc}{gio_hien_tai}")
-    print("\033[1;97m= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ")
-    print(f"{anh} \033[1;33mLink Key Ngày \033[1;32m{datetime.datetime.now().strftime('%Y-%m-%d')}:\033[1;36m {yeumoney}")
-    print("\033[1;97m= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ")
-    inputkey = input('\033[1;31m[\033[1;37m✾\033[1;31m] \033[1;37m➩ \033[1;33mNhập key \033[1;35m==>: \033[1;95m').strip()
-    if inputkey == key:
-    	
-        print('\033[1;32m Key đúng rồi bú thôi!\033[0;m')
-        
-        with open(FileLuuKey, "w") as file:
-            file.write(inputkey)
-        break
-    else:
-    	
-        print('\033[1;31m Key Không Hợp Lệ !\033[0;m')
 cam="\033[1;33m"
 den = "\033[1;90m"
 luc = "\033[1;32m"
@@ -297,4 +230,75 @@ class TraoDoiSub_Api (object):
 	#follow, like, likegiare, likesieure, reaction, comment, share, reactcmt, group, page
 	def get_job(self, type):
 		try:
-			get = requests.get(f'https://traodoisub.com/api/?fields={type}&access_token={self.token}',headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) C
+			get = requests.get(f'https://traodoisub.com/api/?fields={type}&access_token={self.token}',headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'})
+			return get
+		except:
+			return False 
+		
+	def nhan_xu(self, type, id):
+		try:
+			nhan = requests.get(f'https://traodoisub.com/api/coin/?type={type}&id={id}&access_token={self.token}',headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'}).json()
+			try:
+				xu = nhan['data']['xu']
+				msg = nhan['data']['msg']
+				return msg, xu
+			except:
+				return nhan
+		except:
+			return False
+
+
+def bongoc(so):
+	a= "\033[1;31m────"*so
+	print(a)
+def hoanthanh(dem, id, type, msg, xu):
+	uid = id.split('_')[1] if '_' in id else id
+	time=datetime.now().strftime("%H:%M:%S")
+	print(f'\033[1;36m[\033[1;33m{dem}\033[1;36m] \033[1;36m| \033[1;95m{time} \033[1;36m| \x1b[38;5;207m{type} \033[1;36m| \033[1;33m{uid} \033[1;36m| \x1b[38;5;46m{msg} \033[1;36m| \033[1;33m{xu} \033[1;36m|')
+
+def error(id, type):
+	time=datetime.now().strftime("%H:%M:%S")
+	uid = id.split('_')[1] if '_' in id else id
+	print(f'\033[1;31m Đang Lỗi Gì Đó Mong Thông Cảm Nhé', end = '\r'); sleep(2); print('                                                   ', end = '\r')
+
+def Nhap_Cookie():
+	list_cookie = []
+	i = 0
+	while True:
+		i += 1
+		cookie = input(f'\033[1;36m[\033[1;37m✾\033[1;36m] \033[1;33m=> \033[1;32mNhập Cookie Facebook Thứ \033[1;33m{i}: ')
+		if cookie == '' and i > 1:
+			break
+		fb = Facebook_Api(cookie)
+		name = fb.get_thongtin()
+		if name != 0:
+			ten = name[0]
+			print('\033[1;36m──────────────────────────────────────────────────────────────────────')
+			print(f'\033[1;36m[\033[1;37m✾\033[1;36m] \033[1;33m=>\033[1;32mTên Facebook: {ten}')
+			list_cookie.append(cookie)
+			print('\033[1;36m──────────────────────────────────────────────────────────────────────')
+		else:
+			print('Cookie Facebook Die ! Vui Lòng Nhập Lại !!!')
+			print('\033[1;36m──────────────────────────────────────────────────────────────────────')
+			i-=1
+	return list_cookie
+def chongblock(delaybl):
+	for i in range(delaybl, -1, -1):
+		print(f' Đang hoạt động chống block sẽ chạy lại sau {i} giây  ',end = '\r');sleep(1); print('                                                        ', end = '\r')
+def nghingoi(delaymin, delaymax):
+	delay = randint(delaymin, delaymax)
+	for i in range(delay, -1, -1):
+		sleep(1)
+
+def main():
+	ntool = 0
+	dem = 0
+	banner()
+	while True:
+		if os.path.exists('configtds.txt'):
+			with open('configtds.txt', 'r') as f:
+				token = f.read()
+			tds = TraoDoiSub_Api(token)
+			data = tds.main()
+			try:
+				print('\033[1;36m[\033[1;37m✾\033[1;36m] \033[1;90m=>\033[1;32m Nhập [\033[1;33m1\033[1;32m] Giữ Lại Tài K
